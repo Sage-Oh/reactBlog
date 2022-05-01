@@ -1,8 +1,11 @@
+/* eslint-disable */
+
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
 function App() {
+  
 
   let [제목, 글제목변경] = useState(['진주  상대동 카페 이로움', '맛집추천', '리액트 독학']);
   let [따봉, 따봉변경] = useState(0);
@@ -40,9 +43,23 @@ function App() {
         <h4> { 제목[2] } </h4>
         <p>4월 29일 발행</p>
       </div>
-
+      
+      <Banana></Banana>
+      
     </div>
   );
-}
+};
+
+function Banana(){
+  return(
+    <div>
+      <h3>블로그 방문자수 통계조회</h3>
+      <input type="text" value="입력하세요"/>
+      <button>버튼</button>
+    </div>
+  );
+};
+
+
 
 export default App;
