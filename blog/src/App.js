@@ -5,11 +5,16 @@ import './App.css';
 import { useState } from 'react';
 
 function App() {
-  
-
   let [제목, 글제목변경] = useState(['진주  상대동 카페 이로움', '맛집추천', '리액트 독학']);
   let [따봉, 따봉변경] = useState(0);
-
+  let [modal, setModal] = useState(false);
+  function 모달(){
+    if(modal==true){
+      setModal(false)
+    }else{
+      setModal(true)
+    }
+  };
 
   return (
     <div className="App">
@@ -32,7 +37,7 @@ function App() {
         } }>글수정</button>
 
       <div className='list'>
-        <h4> { 제목[0] } <span onClick={()=>{ 따봉변경(따봉++) }}>👍</span> {따봉} </h4>
+        <h4 onClick={모달}> { 제목[0] } <span onClick={()=>{ 따봉변경(따봉++) }}>👍</span> {따봉} </h4>
         <p>4월 29일 발행</p>
       </div>
       <div className='list'>
@@ -43,23 +48,25 @@ function App() {
         <h4> { 제목[2] } </h4>
         <p>4월 29일 발행</p>
       </div>
-      
-      <Banana></Banana>
-      
+        
+        
+      {
+        modal == true ? <Modal/> : null
+      }
     </div>
   );
+
 };
 
-function Banana(){
+function Modal(){
   return(
-    <div>
-      <h3>블로그 방문자수 통계조회</h3>
-      <input type="text" value="입력하세요"/>
-      <button>버튼</button>
+    <div className='modal'>
+      <h4>제목</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
     </div>
-  );
-};
-
+  )
+}
 
 
 export default App;
