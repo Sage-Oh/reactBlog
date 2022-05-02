@@ -7,16 +7,16 @@ import { useState } from 'react';
 function App() {
   let [제목, 글제목변경] = useState(['진주  상대동 카페 이로움', '맛집추천', '리액트 독학']);
   let [따봉, 따봉변경] = useState([0,0,0]);
-
   let [modal, setModal] = useState(false);
+  let [title, setTitle] = useState(0);
 
-  function 모달(){
-    if(modal==true){
-      setModal(false)
-    }else{
-      setModal(true)
-    }
-  };
+  // function 모달(){
+  //   if(modal==true){
+  //     setModal(false)
+  //   }else{
+  //     setModal(true)
+  //   }
+  // };
 
   function 바꿔요(){
     let copy = [...제목];
@@ -66,7 +66,7 @@ function App() {
         제목.map(function(a,i){
           return(
             <div className='list' key={i}>
-            <h4 onClick={모달}> { a } </h4>
+            <h4 onClick={()=>{setModal(true); setTitle(i)}}> { a } </h4>
             <span onClick={()=>{
               let copy = [...따봉];
               copy[i] = copy[i]+1
@@ -82,18 +82,17 @@ function App() {
         
         
       {
-        modal == true ? <Modal color="yellow" 제목={제목} 바꿔요={바꿔요}/> : null
+        modal == true ? <Modal color="yellow" 제목={제목} title={title} 바꿔요={바꿔요}/> : null
       }
     </div>
   );
 };
 
 
-
 function Modal(props){
   return(
     <div className='modal' style={{background: props.color}}>
-      <h4>{props.제목[0]}</h4>
+      <h4>{props.제목[props.title]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
       <button onClick={props.바꿔요}>글수정</button>
