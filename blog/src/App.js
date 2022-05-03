@@ -77,8 +77,7 @@ function App() {
               <p>4월 29일 발행</p>
               <button onClick={ ()=>{
                 let copy = [...제목];
-                copy[i] = '';
-                --i;
+                copy.splice(i, 1)
                 글제목변경(copy);
               } }>삭제</button>
             </div>
@@ -89,7 +88,7 @@ function App() {
       
       <input onChange={ (e)=>{ setWord(e.target.value); console.log(word) } }/><button onClick={ ()=>{
         let copy = [...제목];
-        copy = [word, '진주  상대동 카페 이로움', '맛집추천', '리액트 독학'];
+        copy.unshift(word);
         글제목변경(copy);
       } }>버튼</button>
         
