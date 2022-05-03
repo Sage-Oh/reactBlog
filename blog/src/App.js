@@ -9,6 +9,7 @@ function App() {
   let [따봉, 따봉변경] = useState([0,0,0]);
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0);
+  let [word, setWord] = useState('');
 
   // function 모달(){
   //   if(modal==true){
@@ -66,20 +67,31 @@ function App() {
         제목.map(function(a,i){
           return(
             <div className='list' key={i}>
-            <h4 onClick={()=>{setModal(true); setTitle(i)}}> { a } </h4>
-            <span onClick={()=>{
-              let copy = [...따봉];
-              copy[i] = copy[i]+1
-              따봉변경(copy)
-            }}>👍</span> 
-            {따봉[i]}
-            <p>4월 29일 발행</p>
+              <h4 onClick={()=>{setModal(true); setTitle(i)}}> { a } 
+                <span onClick={()=>{
+                  let copy = [...따봉];
+                  copy[i] = copy[i]+1
+                  따봉변경(copy)
+                }}>👍</span> {따봉[i]}
+              </h4>
+              <p>4월 29일 발행</p>
+              <button onClick={ ()=>{
+                let copy = [...제목];
+                copy[i] = '';
+                --i;
+                글제목변경(copy);
+              } }>삭제</button>
             </div>
           
           )
         })
       }
-        
+      
+      <input onChange={ (e)=>{ setWord(e.target.value); console.log(word) } }/><button onClick={ ()=>{
+        let copy = [...제목];
+        copy = [word, '진주  상대동 카페 이로움', '맛집추천', '리액트 독학'];
+        글제목변경(copy);
+      } }>버튼</button>
         
       {
         modal == true ? <Modal color="yellow" 제목={제목} title={title} 바꿔요={바꿔요}/> : null
