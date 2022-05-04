@@ -3,6 +3,8 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
+import moment from 'moment';
+import 'moment/locale/ko'; 
 
 function App() {
   let [제목, 글제목변경] = useState(['진주  상대동 카페 이로움', '맛집추천', '리액트 독학']);
@@ -10,6 +12,9 @@ function App() {
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0);
   let [word, setWord] = useState('');
+  const nowTime = moment().format('YYYY-MM-DD HH:mm;ss');
+  let [시간, 시간변경] = useState(['2022-01', '2022-02', '2022-03']);
+
 
   // function 모달(){
   //   if(modal==true){
@@ -68,13 +73,15 @@ function App() {
           return(
             <div className='list' key={i}>
               <h4 onClick={()=>{setModal(true); setTitle(i)}}> { a } 
-                <span onClick={()=>{
+                <span onClick={(e)=>{
+                  e.stopPropagation();
+
                   let copy = [...따봉];
-                  copy[i] = copy[i]+1
-                  따봉변경(copy)
+                  copy[i] = copy[i]+1;
+                  따봉변경(copy);
                 }}>👍</span> {따봉[i]}
               </h4>
-              <p>4월 29일 발행</p>
+              <p> {시간[i]} </p>
               <button onClick={ ()=>{
                 let copy = [...제목];
                 copy.splice(i, 1)
@@ -86,10 +93,19 @@ function App() {
         })
       }
       
-      <input onChange={ (e)=>{ setWord(e.target.value); console.log(word) } }/><button onClick={ ()=>{
+      <input onChange={ (e)=>{ setWord(e.target.value); console.log(word) } }/>
+      <button onClick={ ()=>{
         let copy = [...제목];
         copy.unshift(word);
-        글제목변경(copy);
+        word=="" ? 글제목변경(제목) : 글제목변경(copy) ;
+        // 글제목변경(copy);
+        let copy1 = [...따봉];
+        copy1.unshift(0);
+        따봉변경(copy1);
+        //날짜 변경
+        let copy2 = [...시간];
+        copy2.unshift(nowTime);
+        시간변경(copy2);
       } }>버튼</button>
         
       {
